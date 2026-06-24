@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Elenco Squadre')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <h1 class="page-title">🛡️ Elenco Squadre</h1>
+		
+		<div style="margin-bottom: 25px;">
+			<span>partite totali nel sistema:</span>
+			<span th:text="${squadre.size()}"> </span>			
+		</div>
+
+        <div th:if="${squadre.isEmpty()}">					
+            <p>Nessuna squadra presente nel sistema.</p>
+        </div>
+
+        <div class="partite-grid" th:unless="${squadre.isEmpty()}">
+
+            <div th:each="squadra : ${squadre}" class="partita-card">
+
+                <div class="card-header">
+                    <span th:text="${squadra.nome}">Nome Squadra</span>
+                </div>
+
+                <div class="card-body">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Città:</span>
+                        <strong th:text="${squadra.citta}">Roma</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Fondazione:</span>
+                        <span th:text="${squadra.annoDiFondazione}">1927</span>
+                    </div>
+                </div>
+
+                <a class="btn-link" th:href="@{/squadre/{id}(id=${squadra.id})}">Vedi Dettagli</a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">
+            <a th:href="@{/}" style="color: var(--text-light, #555); text-decoration: none;">← Torna all'Homepage</a>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

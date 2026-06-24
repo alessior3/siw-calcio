@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Modifica Commento')}"></head>
+
+<body>
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="form-container">
+            <h2>✏️ Modifica Commento</h2>
+            
+            <form th:action="@{'/user/commenti/' + ${commento.id} + '/edit'}" method="POST" th:object="${commento}">
+                
+                <div class="form-group">
+                    <label for="testo">Testo del Commento</label>
+                    <textarea id="testo" th:field="*{testo}" required placeholder="Modifica il tuo commento..." rows="6"
+                              style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; resize: vertical; font-family: inherit; font-size: 1rem;"></textarea>
+                    <span class="error-msg" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" style="flex: 1; margin: 0; box-sizing: border-box; background-color: var(--primary); color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                        Salva Modifiche
+                    </button>
+                    <!-- Tasto annulla che rimanda alla pagina della partita (devi passargli l'id della partita) -->
+                    <a th:href="@{'/partite/' + ${commento.partita.id}}" style="flex: 1; margin: 0; box-sizing: border-box; text-align: center; background-color: #94a3b8; color: white; padding: 12px; border-radius: 6px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                        Annulla
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+</body>
+
+</html>

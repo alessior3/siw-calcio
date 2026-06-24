@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Accesso Negato - 403')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container" style="text-align: center; padding: 50px 20px;">
+
+            <!-- Icona a tema calcistico (Divieto) -->
+            <div style="font-size: 5rem; margin-bottom: 20px;">
+                ⛔
+            </div>
+
+            <h1 style="color: var(--text-main); font-size: 3rem; margin-bottom: 10px;">Accesso Negato! (Errore 403)</h1>
+
+            <h3 style="color: var(--text-light); margin-bottom: 30px; font-weight: normal;">
+                Fallo da ultimo uomo! Non hai i permessi per entrare in quest'area del campo.
+            </h3>
+
+            <p style="color: #64748b; margin-bottom: 40px; font-size: 1.1rem;">
+                <span th:if="${errorMessage}" th:text="${errorMessage}"></span>
+                <span th:unless="${errorMessage}">Quest'area è riservata allo staff tecnico (Amministratori) o ad altri
+                    utenti.</span>
+            </p>
+
+            <div>
+                <a th:href="@{/}"
+                    style="background-color: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; transition: opacity 0.2s;">
+                    🏠 Torna negli spogliatoi (Home)
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

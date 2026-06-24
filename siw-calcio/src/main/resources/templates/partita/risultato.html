@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Inserisci Risultato')}"></head>
+
+<body>
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="form-container">
+            <h2>⚽ Inserisci Risultato</h2>
+            <h4 style="text-align: center; color: #64748b; margin-bottom: 20px;" 
+                th:text="${partita.squadraCasa.nome} + ' vs ' + ${partita.squadraTrasferta.nome}">Roma vs Lazio</h4>
+            
+            <form th:action="@{'/admin/partite/' + ${partita.id} + '/inserimento-risultato'}" method="POST" th:object="${partita}">
+                
+                <div th:if="${#fields.hasGlobalErrors()}" class="error-msg" style="text-align: center; margin-bottom: 20px;">
+                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore Globale</p>
+                </div>
+                
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label th:text="'Gol ' + ${partita.squadraCasa.nome} + ' (Casa):'">Gol Casa:</label>
+                        <input type="number" id="goalCasa" th:field="*{goalCasa}" required min="0" placeholder="0"
+                               style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1.5rem; text-align: center;">
+                        <span class="error-msg" th:if="${#fields.hasErrors('goalCasa')}" th:errors="*{goalCasa}"></span>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1;">
+                        <label th:text="'Gol ' + ${partita.squadraTrasferta.nome} + ' (Trasferta):'">Gol Trasferta:</label>
+                        <input type="number" id="goalTrasferta" th:field="*{goalTrasferta}" required min="0" placeholder="0"
+                               style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1.5rem; text-align: center;">
+                        <span class="error-msg" th:if="${#fields.hasErrors('goalTrasferta')}" th:errors="*{goalTrasferta}"></span>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button type="submit" style="flex: 1; background-color: #10b981; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                        Salva Risultato Finale
+                    </button>
+                    <!-- Tasto annulla che rimanda al dettaglio della partita -->
+                    <a th:href="@{'/partite/' + ${partita.id}}" style="flex: 1; text-align: center; background-color: #94a3b8; color: white; padding: 12px; border-radius: 6px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                        Annulla
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+</body>
+
+</html>

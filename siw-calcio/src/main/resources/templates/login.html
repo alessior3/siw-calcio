@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: headerfiles('Login')}"></head>
+<body>
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="form-container" style="max-width: 400px; margin-top: 50px;">
+            <div style="text-align: center; margin-bottom: 20px; font-size: 3rem;">⚽</div>
+            <h2 style="text-align: center;">Login</h2>
+
+            <!-- Box per mostrare eventuali messaggi di errore da Spring Security -->
+            <div th:if="${param.error}" class="error-msg" style="display: block; margin-bottom: 15px; text-align: center; padding: 10px;">
+                Username o password errati.
+            </div>
+            
+            <!-- Box per mostrare l'avvenuto logout -->
+            <div th:if="${param.logout}" style="color: #15803d; background-color: #dcfce7; border: 1px solid #15803d; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">
+                Logout effettuato con successo. A presto!
+            </div>
+
+            <!-- ATTENZIONE: per il login si usa name="username" e name="password" standard, non th:field! -->
+            <form th:action="@{/login}" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autofocus />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required />
+                </div>
+
+                <button type="submit" style="width: 100%; margin-top: 10px;">Entra in Campo</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <p style="color: var(--text-light);">Non hai una squadra? <br>
+                <a th:href="@{/register}" style="color: var(--primary); font-weight: bold; text-decoration: none;">Registrati qui</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+</body>
+</html>

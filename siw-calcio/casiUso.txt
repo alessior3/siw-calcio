@@ -1,0 +1,13 @@
+UTENTE PUBBLICO:
+Visualizzazione del dettaglio di una squadra (con giocatori)
+Visualizzazione del dettaglio di un torneo (e calendario partite)
+
+UTENTE REGISTRATO:
+Inserimento di un nuovo commento ad una partita
+Modifica di un proprio commento
+
+UTENTE ADMIN:
+Inserimento e modifica di una squadra
+Registrazione di una partita
+Inserimento del risultato di una partita
+Inserimento nuovo torneo

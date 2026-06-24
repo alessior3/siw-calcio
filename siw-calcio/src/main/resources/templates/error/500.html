@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Errore di Sistema - 500')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container" style="text-align: center; padding: 50px 20px;">
+            
+            <!-- Icona a tema calcistico (cartellino rosso) -->
+            <div style="font-size: 5rem; margin-bottom: 20px;">
+                🟥
+            </div>
+
+            <h1 style="color: var(--text-main); font-size: 3rem; margin-bottom: 10px;">Cartellino Rosso! (Errore 500)</h1>
+            
+            <h3 style="color: var(--text-light); margin-bottom: 30px; font-weight: normal;">
+                Problemi tecnici negli spogliatoi: il nostro server ha subito un brutto fallo.
+            </h3>
+
+            <p style="color: #64748b; margin-bottom: 40px; font-size: 1.1rem;">
+                Si è verificato un errore inaspettato durante l'elaborazione della tua richiesta. I nostri tecnici (e lo staff medico) sono già al lavoro per risolvere il problema!
+            </p>
+
+            <div>
+                <a th:href="@{/}" style="background-color: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; transition: opacity 0.2s;">
+                    🏠 Torna in Campo (Home)
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

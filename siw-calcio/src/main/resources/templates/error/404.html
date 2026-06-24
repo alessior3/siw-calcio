@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Pagina non trovata - 404')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container" style="text-align: center; padding: 50px 20px;">
+            
+            <!-- Icona a tema calcistico (arbitro col cartellino o pallone) -->
+            <div style="font-size: 5rem; margin-bottom: 20px;">
+                🚩
+            </div>
+
+            <h1 style="color: var(--text-main); font-size: 3rem; margin-bottom: 10px;">Fuorigioco! (Errore 404)</h1>
+            
+            <h3 style="color: var(--text-light); margin-bottom: 30px; font-weight: normal;">
+                L'arbitro ha fermato il gioco: la pagina che stai cercando non esiste o è stata rimossa.
+            </h3>
+
+            <p style="color: #64748b; margin-bottom: 40px; font-size: 1.1rem;">
+                Forse hai cliccato su un link scaduto o hai digitato male l'indirizzo. Niente paura, la partita continua!
+            </p>
+
+            <div>
+                <a th:href="@{/}" style="background-color: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; transition: opacity 0.2s;">
+                    🏠 Torna al Calcio d'Inizio (Home)
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

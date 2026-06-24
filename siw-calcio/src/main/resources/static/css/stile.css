@@ -1,0 +1,394 @@
+/* ==========================================
+   VARIABILI GLOBALI (Stile Grezzo/Brutalista)
+   ========================================== */
+:root {
+    --primary: #000000;
+    --secondary: #ff3366;
+    --bg-color: #f4f0ea; /* Colore carta/grezzo */
+    --card-bg: #ffffff;
+    --text-main: #111111;
+    --text-light: #333333;
+    
+    --border-color: #000000;
+    --primary-hover: #222222;
+    --error-color: #ff0000;
+
+    --border-w: 3px;
+    --shadow-solid: 5px 5px 0px var(--primary);
+    --shadow-solid-hover: 8px 8px 0px var(--primary);
+}
+
+/* ==========================================
+   RESET E IMPOSTAZIONI BASE
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   LAYOUT GENERALE
+   ========================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 1rem 2rem;
+    color: var(--primary);
+    border-bottom: var(--border-w) solid var(--primary);
+}
+
+.nav-brand {
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+    color: var(--secondary);
+    border-bottom: 2px solid var(--secondary);
+}
+
+main {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 2rem;
+    width: 100%;
+}
+
+.page-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px #ccc;
+    border-bottom: 4px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--card-bg);
+    color: var(--primary);
+    padding: 1.5rem;
+    margin-top: auto;
+    border-top: var(--border-w) solid var(--primary);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   COMPONENTI SPECIFICI
+   ========================================== */
+.dashboard-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.btn-gigante {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffde59; /* Giallo acceso */
+    color: var(--primary);
+    text-decoration: none;
+    padding: 2.5rem;
+    border: var(--border-w) solid var(--primary);
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    min-width: 260px;
+    box-shadow: var(--shadow-solid);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-gigante:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-solid-hover);
+    background-color: #ffd000;
+}
+
+.btn-gigante:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--primary);
+}
+
+/* Aggiungiamo colori diversi per i vari bottoni per renderlo più "fatto a mano" */
+.dashboard-menu .btn-gigante:nth-child(2) { background-color: #4cd137; }
+.dashboard-menu .btn-gigante:nth-child(3) { background-color: #00a8ff; color: #fff; }
+.dashboard-menu .btn-gigante:nth-child(4) { background-color: #9c88ff; color: #fff; }
+
+.partite-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.partita-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border: var(--border-w) solid var(--primary);
+    box-shadow: var(--shadow-solid);
+    min-width: 320px;
+    gap: 1rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+    font-weight: 900;
+    border-bottom: 2px dashed var(--primary);
+    padding-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+.btn-link {
+    display: flex;
+    justify-content: center;
+    background-color: var(--card-bg);
+    color: var(--primary);
+    text-decoration: none;
+    padding: 0.6rem;
+    border: var(--border-w) solid var(--primary);
+    box-shadow: 3px 3px 0px var(--primary);
+    margin-top: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: all 0.1s;
+}
+
+.btn-link:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px var(--primary);
+}
+
+.btn-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--primary);
+}
+
+.dettaglio-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    padding: 3rem;
+    border: var(--border-w) solid var(--primary);
+    box-shadow: var(--shadow-solid);
+    width: 100%;
+    max-width: 800px;
+    gap: 2.5rem;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.score-box {
+    font-size: 3.5rem;
+    background-color: var(--bg-color);
+    border: var(--border-w) solid var(--primary);
+    padding: 1rem 2rem;
+    box-shadow: 5px 5px 0px var(--primary);
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-top: var(--border-w) solid var(--primary);
+    padding-top: 1.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px dashed var(--primary);
+    padding: 2.5rem;
+    background-color: #fffde7;
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+/* ==========================================
+   MODULI DI INSERIMENTO (I nuovi Form)
+   ========================================== */
+
+.form-container {
+    background-color: var(--card-bg);
+    width: 100%;
+    max-width: 550px;
+    padding: 40px 30px;
+    border: var(--border-w) solid var(--primary);
+    box-shadow: var(--shadow-solid);
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 2rem;
+    border-bottom: 3px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="datetime-local"],
+select,
+textarea {
+    width: 100%;
+    padding: 14px;
+    border: var(--border-w) solid var(--primary);
+    font-size: 1.1rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    transition: all 0.1s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    background-color: #fff9c4; /* Giallo chiaro */
+    box-shadow: 4px 4px 0px var(--primary);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Bottone di invio */
+button[type="submit"] {
+    width: 100%;
+    background-color: var(--secondary);
+    color: white;
+    border: var(--border-w) solid var(--primary);
+    padding: 16px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: var(--shadow-solid);
+    transition: all 0.1s ease;
+    margin-top: 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button[type="submit"]:hover {
+    background-color: #e6004c;
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-solid-hover);
+}
+
+button[type="submit"]:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--primary);
+}
+
+/* Messaggi di Errore */
+.error-msg {
+    color: var(--card-bg);
+    background-color: var(--error-color);
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 8px;
+    display: inline-block;
+    border: 2px solid var(--primary);
+}
+
+.global-errors {
+    background-color: var(--error-color);
+    border: var(--border-w) solid var(--primary);
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}

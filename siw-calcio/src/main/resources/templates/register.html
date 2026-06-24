@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: headerfiles('Registrazione')}"></head>
+<body>
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="form-container" style="max-width: 500px; margin-top: 30px;">
+            <div style="text-align: center; margin-bottom: 10px; font-size: 2.5rem;">📝</div>
+            <h2 style="text-align: center; margin-bottom: 30px;">Scendi in Campo (Registrati)</h2>
+
+            <form th:action="@{/register}" method="POST">
+                
+                <h3 style="margin-bottom: 15px; color: var(--primary); font-size: 1.2rem; border-bottom: 2px solid var(--primary); padding-bottom: 5px;">Dati Personali</h3>
+                
+                <!-- Box per l'oggetto Utente -->
+                <div th:object="${utente}">
+                    <div class="form-group" style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" th:field="*{nome}" />
+                            <span class="error-msg" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="cognome">Cognome</label>
+                            <input type="text" id="cognome" th:field="*{cognome}" />
+                            <span class="error-msg" th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" th:field="*{email}" />
+                        <span class="error-msg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--primary); font-size: 1.2rem; border-bottom: 2px solid var(--primary); padding-bottom: 5px;">Credenziali di Accesso</h3>
+
+                <!-- Box per l'oggetto Credentials -->
+                <div th:object="${credentials}">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" th:field="*{username}" />
+                        <span class="error-msg" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" th:field="*{password}" />
+                        <span class="error-msg" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    </div>
+                </div>
+
+                <button type="submit" style="width: 100%; margin-top: 20px;">Firma il Contratto (Registrati)</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <p style="color: var(--text-light);">Sei già registrato? <br>
+                <a th:href="@{/login}" style="color: var(--primary); font-weight: bold; text-decoration: none;">Vai al Login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+</body>
+</html>

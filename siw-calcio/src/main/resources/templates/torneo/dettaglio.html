@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Dettaglio Torneo')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container" th:if="${torneo != null}">
+
+            <h1 style="text-align: center;">🏆 <span th:text="${torneo.nome}">Nome Torneo</span></h1>
+
+            <div class="info-list">
+                <p><strong>Edizione:</strong> <span th:text="${torneo.anno}">2026</span></p>
+                <p><strong>Descrizione:</strong> <span th:text="${torneo.descrizione}">Descrizione completa del
+                        torneo...</span></p>
+            </div>
+
+            <div class="comment-section" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">Squadre Iscritte</h3>
+
+                <div th:if="${torneo.squadra == null or torneo.squadra.isEmpty()}"
+                    style="text-align: center; color: #666;">
+                    <p>Nessuna squadra ancora iscritta a questo torneo.</p>
+                </div>
+
+                <ul th:unless="${torneo.squadra == null or torneo.squadra.isEmpty()}"
+                    style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li th:each="squadra : ${torneo.squadra}"
+                        style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 12px 20px; display: flex; justify-content: center; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+
+                        <!-- Link alla pagina di dettaglio della squadra -->
+                        <a th:href="@{/squadre/{id}(id=${squadra.id})}" th:text="${squadra.nome}"
+                            style="font-weight: 600; text-decoration: none; color: #0056b3; font-size: 1.1rem;">
+                            Nome Squadra
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 1rem;">
+                <a th:href="@{/tornei}" style="color: var(--text-light); text-decoration: none;">← Torna all'elenco
+                    tornei</a>
+            </div>
+
+        </div>
+
+        <div th:unless="${torneo != null}">
+            <h2 style="text-align: center;">⚠️ Torneo non trovato</h2>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

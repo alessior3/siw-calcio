@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nuovo Torneo</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}" />
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>🏆 Nuovo Torneo</h2>
+
+        <form th:action="@{/admin/tornei}" method="POST" th:object="${torneo}">
+
+            <div class="global-errors" th:if="${#fields.hasGlobalErrors()}">
+                <ul>
+                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome del Torneo</label>
+                <input type="text" id="nome" th:field="*{nome}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="anno">Anno (Edizione)</label>
+                <input type="number" id="anno" th:field="*{anno}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="descrizione">Descrizione Breve</label>
+                <textarea id="descrizione" th:field="*{descrizione}"></textarea>
+                <span class="error-msg" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+            </div>
+
+            <button type="submit">Salva Torneo</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

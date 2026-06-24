@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Modifica Squadra')}"></head>
+
+<body>
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="form-container">
+            <h2>✏️ Modifica Squadra</h2>
+            
+            <form th:action="@{'/admin/squadre/' + ${squadra.id} + '/edit'}" method="POST" th:object="${squadra}">
+                
+                <div th:if="${#fields.hasGlobalErrors()}" class="error-msg" style="text-align: center; margin-bottom: 20px;">
+                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore Globale</p>
+                </div>
+                <div class="form-group">
+                    <label for="nome">Nome della Squadra:</label>
+                    <input type="text" id="nome" th:field="*{nome}" required placeholder="Es. Roma"
+                           style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+                    <span class="error-msg" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="citta">Città:</label>
+                    <input type="text" id="citta" th:field="*{citta}" required placeholder="Es. Roma"
+                           style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+                    <span class="error-msg" th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}"></span>
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="annoDiFondazione">Anno di Fondazione:</label>
+                    <input type="number" id="annoDiFondazione" th:field="*{annoDiFondazione}" required min="1850" max="2026" placeholder="Es. 1927"
+                           style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+                    <span class="error-msg" th:if="${#fields.hasErrors('annoDiFondazione')}" th:errors="*{annoDiFondazione}"></span>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button type="submit" style="flex: 1; margin: 0; box-sizing: border-box; background-color: var(--primary); color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                        Salva Modifiche
+                    </button>
+                    <!-- Tasto annulla che rimanda al dettaglio della squadra -->
+                    <a th:href="@{'/squadre/' + ${squadra.id}}" style="flex: 1; margin: 0; box-sizing: border-box; text-align: center; background-color: #94a3b8; color: white; padding: 12px; border-radius: 6px; font-weight: bold; text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                        Annulla
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+</body>
+
+</html>

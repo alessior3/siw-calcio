@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="headerfiles(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">SIW Tornei</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+
+    <nav th:fragment="navbar" class="navbar" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+        <div class="nav-brand" style="margin-right: 30px;">
+			<a th:href="@{/}" style="color: var(--primary); text-decoration: none;">⚽ SIW Tornei</a>
+		</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/tornei}">Tornei</a></li>
+            <li><a th:href="@{/squadre}">Gestione Squadre</a></li>
+            <li><a href="http://localhost:5173" style="color: var(--secondary); font-weight: 900; background-color: var(--primary); color: white; padding: 2px 8px; border: 2px solid var(--primary); box-shadow: 2px 2px 0px var(--secondary);">Cerca Squadre</a></li>
+            <li><a th:href="@{/partite}">Partite</a></li>
+        </ul>
+																			
+        <!-- Pulsanti di Autenticazione (allineati a destra) -->
+        <ul class="nav-links" style="margin-left: auto; display: flex; gap: 15px; align-items: center;">
+
+            <!-- Visibili solo ai visitatori NON loggati -->
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" style="font-weight: 900; color: var(--primary);">Login</a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/register}"
+                    style="background-color: var(--secondary); color: white; padding: 6px 12px; border: var(--border-w) solid var(--primary); box-shadow: 2px 2px 0px var(--primary); font-weight: 900; text-transform: uppercase;">Registrati</a>
+            </li>
+
+            <!-- Visibili solo agli utenti LOGGATI -->
+            <li sec:authorize="isAuthenticated()" style="display: flex; align-items: center;">
+                <span
+                    style="color: var(--primary); font-weight: 900; margin-right: 15px; display: flex; align-items: center; gap: 5px; background-color: #fff; padding: 4px 8px; border: 2px solid var(--primary);">
+                    👤 <span sec:authentication="name">Utente</span>
+                </span>
+            </li>
+            <li sec:authorize="isAuthenticated()" style="display: flex; align-items: center;">
+                <form th:action="@{/logout}" method="POST" style="margin: 0; display: flex; align-items: center;">
+                    <button type="submit"
+                        style="background-color: var(--error-color); color: white; padding: 6px 12px; border: 2px solid var(--primary); box-shadow: 2px 2px 0px var(--primary); cursor: pointer; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0; text-transform: uppercase;">Esci</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <footer th:fragment="footer">
+        <p>&copy; 2026 Gestione Tornei Amatoriali - Progetto SIW</p>
+    </footer>
+
+</body>
+
+</html>

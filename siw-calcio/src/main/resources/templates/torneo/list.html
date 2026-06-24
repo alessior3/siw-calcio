@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Elenco Tornei')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <h1 class="page-title">🏆 Tornei Disponibili</h1>
+
+        <div th:if="${tornei.isEmpty()}">
+            <p>Nessun torneo presente nel sistema.</p>
+        </div>
+
+        <div class="partite-grid" th:unless="${tornei.isEmpty()}">
+
+            <div th:each="torneo : ${tornei}" class="partita-card">
+
+                <div class="card-header">
+                    <span th:text="${torneo.nome}">Nome Torneo</span>
+                </div>
+
+                <div class="card-body">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Edizione (Anno):</span>
+                        <strong th:text="${torneo.anno}">2026</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 5px">
+                        <span>Info:</span>
+                        <span th:text="${#strings.abbreviate(torneo.descrizione, 40)}">Descrizione...</span>
+                    </div>
+                </div>
+
+                <a class="btn-link" th:href="@{/tornei/{id}(id=${torneo.id})}">Apri Torneo</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; margin-bottom: 1rem;">
+            <a th:href="@{/}" style="color: var(--text-light, #555); text-decoration: none;">← Torna all'Homepage</a>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

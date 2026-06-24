@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: headerfiles('Registrazione Completata')}"></head>
+<body>
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container" style="text-align: center; padding: 50px 20px;">
+            <div style="font-size: 5rem; margin-bottom: 20px;">🤝</div>
+            
+            <h1 style="color: var(--text-main); margin-bottom: 10px;">Contratto Firmato!</h1>
+            
+            <h3 style="color: var(--text-light); margin-bottom: 30px; font-weight: normal;">
+                Registrazione completata con successo. Benvenuto in squadra!
+            </h3>
+
+            <p style="color: #64748b; margin-bottom: 40px; font-size: 1.1rem;">
+                Il tuo tesseramento è ora ufficiale. Sei pronto a scendere in campo e commentare le partite.
+            </p>
+
+            <div>
+                <a th:href="@{/login}" style="background-color: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; transition: opacity 0.2s;">
+                    ⚽ Vai al Login
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+</body>
+</html>

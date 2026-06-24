@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Calendario Partite')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <h1 class="page-title">Calendario Partite</h1>
+
+        <div th:if="${partite.isEmpty()}">
+            <p>Nessuna partita presente in calendario.</p>
+        </div>
+
+        <div class="partite-grid" th:unless="${partite.isEmpty()}">
+
+            <div th:each="partita : ${partite}" class="partita-card">
+
+                <div class="card-header">
+                    <span th:text="${partita.squadraCasa.nome}">Squadra 1</span>
+                    <span>VS</span>
+                    <span th:text="${partita.squadraTrasferta.nome}">Squadra 2</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Data:</span>
+                        <span th:text="${#temporals.format(partita.dataOra, 'dd/MM/yyyy HH:mm')}">--/--/----</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Luogo:</span>
+                        <span th:text="${partita.luogo}">Stadio</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Stato:</span>
+                        <strong th:text="${partita.statoPartita}">SCHEDULED</strong>
+                    </div>
+                </div>
+
+                <a class="btn-link" th:href="@{/partite/{id}(id=${partita.id})}">Vedi Dettagli</a>
+            </div>
+        </div>
+        <!-- torna alla homepage -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a th:href="@{/}" style="color: var(--text-light); text-decoration: none;">← Torna all'homepage</a>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

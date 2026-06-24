@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Dettaglio Squadra')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container" th:if="${squadra != null}">
+
+            <h1 style="text-align: center; margin-bottom: 5px;">🛡️ <span th:text="${squadra.nome}">Nome Squadra</span></h1>
+            
+            <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" style="text-align: center; margin-bottom: 20px;">
+                <a th:href="@{'/admin/squadre/' + ${squadra.id} + '/edit'}"
+                   style="color: white; background-color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: bold; padding: 6px 12px; border-radius: 4px; transition: background-color 0.2s;">
+                    ✏️ Modifica Dati Squadra
+                </a>
+            </div>
+
+            <div class="info-list">
+                <p><strong>Città Sede:</strong> <span th:text="${squadra.citta}">Roma</span></p>
+                <p><strong>Anno di Fondazione:</strong> <span th:text="${squadra.annoDiFondazione}">1927</span></p>
+                <div class="comment-section" style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem; text-align: center;">Calciatori Iscritti</h3>
+
+                    <div th:if="${squadra.giocatori == null or squadra.giocatori.isEmpty()}"
+                        style="text-align: center; color: #666;">
+                        <p>Nessun giocatore ancora iscritto a questa squadra.</p>
+                    </div>
+
+                    <ul th:unless="${squadra.giocatori == null or squadra.giocatori.isEmpty()}"
+                        style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li th:each="giocatori : ${squadra.giocatori}"
+                            style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 12px 20px; display: flex; justify-content: center; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+
+                            <!-- Link alla pagina di dettaglio della squadra -->
+                            <a th:href="@{/giocatori/{id}(id=${giocatori.id})}" th:text="${giocatori.nome} + ' ' +
+                                ${giocatori.cognome}"
+                                style="font-weight: 600; text-decoration: none; color: #0056b3; font-size: 1.1rem;">
+                                Nome Giocatore
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a th:href="@{/squadre}" style="color: var(--text-light); text-decoration: none;">← Torna all'elenco
+                    squadre</a>
+            </div>
+
+        </div>
+
+        <div th:unless="${squadra != null}">
+            <h2 style="text-align: center;">⚠️ Squadra non trovata</h2>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

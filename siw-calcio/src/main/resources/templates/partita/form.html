@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Programma Partita</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}" />
+</head>
+
+<body>
+
+    <div class="form-container" style="max-width: 600px;">
+        <h2>📅 Programma Incontro</h2>
+
+        <form th:action="@{/admin/partite}" method="POST" th:object="${partita}">
+
+            <div class="global-errors" th:if="${#fields.hasGlobalErrors()}">
+                <ul>
+                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="dataOra">Data e Ora</label>
+                <input type="datetime-local" id="dataOra" th:field="*{dataOra}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('dataOra')}" th:errors="*{dataOra}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="luogo">Luogo (Stadio o Impianto)</label>
+                <input type="text" id="luogo" th:field="*{luogo}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('luogo')}" th:errors="*{luogo}"></span>
+            </div>
+
+            <hr style="border:0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+
+            <div class="form-group">
+                <label for="torneo">Torneo di Riferimento</label>
+                <select id="torneo" th:field="*{torneo}">
+                    <option value="">-- Seleziona un Torneo --</option>
+                    <option th:each="t : ${tornei}" th:value="${t.id}" th:text="${t.nome} + ' (' + ${t.anno} + ')'">
+                    </option>
+                </select>
+                <span class="error-msg" th:if="${#fields.hasErrors('torneo')}" th:errors="*{torneo}"></span>
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label for="squadraCasa">Squadra in Casa</label>
+                    <select id="squadraCasa" th:field="*{squadraCasa}">
+                        <option value="">-- Seleziona Casa --</option>
+                        <option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}"></option>
+                    </select>
+                    <span class="error-msg" th:if="${#fields.hasErrors('squadraCasa')}"
+                        th:errors="*{squadraCasa}"></span>
+                </div>
+
+                <div style="flex: 1;">
+                    <label for="squadraTrasferta">Squadra in Trasferta</label>
+                    <select id="squadraTrasferta" th:field="*{squadraTrasferta}">
+                        <option value="">-- Seleziona Trasferta --</option>
+                        <option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}"></option>
+                    </select>
+                    <span class="error-msg" th:if="${#fields.hasErrors('squadraTrasferta')}"
+                        th:errors="*{squadraTrasferta}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="arbitro">Arbitro Designato</label>
+                <select id="arbitro" th:field="*{arbitro}">
+                    <option value="">-- Seleziona un Arbitro --</option>
+                    <option th:each="a : ${arbitri}" th:value="${a.id}" th:text="${a.nome} + ' ' + ${a.cognome}">
+                    </option>
+                </select>
+                <span class="error-msg" th:if="${#fields.hasErrors('arbitro')}" th:errors="*{arbitro}"></span>
+            </div>
+
+            <button type="submit">Salva Partita</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

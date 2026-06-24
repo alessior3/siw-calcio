@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: headerfiles('Dettaglio Partita')}"></head>
+
+<body>
+
+    <nav th:replace="~{fragments/base :: navbar}"></nav>
+
+    <main>
+        <div class="dettaglio-container">
+
+            <h1 style="text-align: center;">Dettaglio Match</h1>
+
+            <div class="scoreboard"
+                style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 0.2rem 0;">
+
+                <div style="flex: 1; text-align: right;">
+                    <a th:href="@{/squadre/{id}(id=${partita.squadraCasa.id})}" th:text="${partita.squadraCasa.nome}"
+                        style="font-size: 1.8rem; font-weight: bold; text-decoration: none;">Squadra 1</a>
+                </div>
+
+                <div class="score-box" th:if="${partita.statoPartita.name() == 'GIOCATA'}" style="margin: 0 2rem;">
+                    <span th:text="${partita.goalCasa}">0</span> - <span th:text="${partita.goalTrasferta}">0</span>
+                </div>
+
+                <div class="score-box" th:unless="${partita.statoPartita.name() == 'GIOCATA'}" style="margin: 0 2rem;">
+                    <span>VS</span>
+                </div>
+
+                <div style="flex: 1; text-align: left;">
+                    <a th:href="@{/squadre/{id}(id=${partita.squadraTrasferta.id})}"
+                        th:text="${partita.squadraTrasferta.nome}"
+                        style="font-size: 1.8rem; font-weight: bold; text-decoration: none;">Squadra 2</a>
+                </div>
+            </div>
+            
+            <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" style="text-align: center; margin-bottom: 25px;">
+                <a th:href="@{'/admin/partite/' + ${partita.id} + '/inserimento-risultato'}"
+                   style="color: white; background-color: #10b981; text-decoration: none; font-size: 0.95rem; font-weight: bold; padding: 8px 16px; border-radius: 6px; transition: opacity 0.2s;">
+                    ⚽ Inserisci/Modifica Risultato
+                </a>
+            </div>
+
+            <div class="info-list">
+                <p><strong>Stato Partita:</strong> <span th:text="${partita.statoPartita}">SCHEDULED</span></p>
+                <p><strong>Data e Ora:</strong> <span
+                        th:text="${#temporals.format(partita.dataOra, 'dd/MM/yyyy HH:mm')}">--/--/----</span></p>
+                <p><strong>Impianto Sportivo:</strong> <span th:text="${partita.luogo}">Stadio</span></p>
+
+                <p>
+                    <strong>Arbitro Designato:</strong>
+                    <a th:href="@{/arbitri/{id}(id=${partita.arbitro.id})}" th:text="${partita.arbitro.nome} + ' ' +
+                        ${partita.arbitro.cognome}">Arbitro</a>
+                </p>
+            </div>
+
+			<!-- Sezione aggiunta commento -->
+            <div class="comment-form-container"
+                style="background: var(--bg-color); padding: 30px; border-radius: 12px; border: 1px solid #eee; margin-top: 30px;">
+
+                <h3 style="margin-bottom: 15px; color: var(--text-main);">💬 Lascia un Commento</h3>
+
+                <form th:action="@{'/user/partite/' + ${partita.id} + '/commenti'}" method="POST"
+                    th:object="${commento}">
+
+                    <div style="margin-bottom: 15px;">
+                        <textarea th:field="*{testo}" required placeholder="Scrivi un commento su questa partita..."
+                            rows="4"
+                            style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; resize: vertical; font-family: inherit; font-size: 1rem;"></textarea>
+                        <span class="error-msg" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" style="color: red; display: block; margin-top: 5px;"></span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; color: var(--text-light);">
+                            🕒 Il commento verrà registrato con la data e ora attuali.
+                        </span>
+                        <button type="submit"
+                            style="background-color: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: opacity 0.2s;">
+                            Invia Commento
+                        </button>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <!-- Sezione dei commenti postati -->
+            <div class="comments-list" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Commenti degli Utenti</h3>
+                
+                <div th:if="${partita.commento == null or partita.commento.isEmpty()}" style="color: #666; font-style: italic;">
+                    <p>Nessun commento per questa partita. Sii il primo a commentare!</p>
+                </div>
+                
+                <ul th:unless="${partita.commento == null or partita.commento.isEmpty()}" 
+                    style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
+                    <li th:each="comm : ${partita.commento}" 
+                        style="background-color: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #64748b; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; align-items: center;">
+                            <strong style="color: #334155;" th:text="${comm.utente != null ? comm.utente.credentials.username : 'Utente Anonimo'}">Username</strong>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span th:text="${comm.dataOra != null ? #temporals.format(comm.dataOra, 'dd/MM/yyyy HH:mm') : 'Data sconosciuta'}">Data e Ora</span>
+                                    <span th:if="${comm.modificato}" style="font-size: 0.8rem; font-style: italic; color: #94a3b8;">(modificato)</span>
+                                </div>
+                                <a th:if="${#authorization.expression('hasAuthority(''ADMIN'')') or (#authorization.expression('isAuthenticated()') and comm.utente != null and #authentication.name == comm.utente.credentials.username)}"
+                                   th:href="@{'/user/commenti/' + ${comm.id} + '/edit'}"
+                                   style="color: white; background-color: #3b82f6; text-decoration: none; font-size: 0.8rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; transition: background-color 0.2s;">
+                                    ✏️ Modifica
+                                </a>
+                            </div>
+                        </div>
+                        <p style="margin: 0; color: #1e293b; line-height: 1.5;" th:text="${comm.testo}">Testo del commento...</p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- link per tornare all'elenco partite -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a th:href="@{/partite}" style="color: var(--text-light); text-decoration: none;">← Torna all'elenco
+                partite</a>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+
+</html>

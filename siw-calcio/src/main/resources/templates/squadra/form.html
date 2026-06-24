@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nuova Squadra</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}" />
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>🛡️ Nuova Squadra</h2>
+
+        <form th:action="@{/admin/squadre}" method="POST" th:object="${squadra}">
+
+            <div class="global-errors" th:if="${#fields.hasGlobalErrors()}">
+                <ul>
+                    <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome della Squadra</label>
+                <input type="text" id="nome" th:field="*{nome}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="annoDiFondazione">Anno di Fondazione</label>
+                <input type="number" id="annoDiFondazione" th:field="*{annoDiFondazione}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('annoDiFondazione')}"
+                    th:errors="*{annoDiFondazione}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="citta">Città</label>
+                <input type="text" id="citta" th:field="*{citta}" />
+                <span class="error-msg" th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}"></span>
+            </div>
+
+            <button type="submit">Registra Squadra</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
