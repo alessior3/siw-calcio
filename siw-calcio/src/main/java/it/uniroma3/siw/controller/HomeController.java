@@ -16,8 +16,6 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String getHome(Model model) {
-		Long numeroPartite=this.partitaService.count();
-		model.addAttribute("totalePartite", numeroPartite);
 		return "index.html";
 	}
 

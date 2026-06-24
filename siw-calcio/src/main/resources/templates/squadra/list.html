@@ -10,10 +10,7 @@
     <main>
         <h1 class="page-title">🛡️ Elenco Squadre</h1>
 		
-		<div style="margin-bottom: 25px;">
-			<span>partite totali nel sistema:</span>
-			<span th:text="${squadre.size()}"> </span>			
-		</div>
+
 
         <div th:if="${squadre.isEmpty()}">					
             <p>Nessuna squadra presente nel sistema.</p>

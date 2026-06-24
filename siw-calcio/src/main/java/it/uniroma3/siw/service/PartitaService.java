@@ -66,8 +66,4 @@ public class PartitaService {
 		partita.setStatoPartita(Stato.GIOCATA);
 		this.partitaRepository.save(partita);
 	}
-	
-	public Long count() {
-		return this.partitaRepository.count();
-	}
 }
